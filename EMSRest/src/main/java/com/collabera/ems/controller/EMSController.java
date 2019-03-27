@@ -29,6 +29,8 @@ import com.collabera.repo.EmployeeRepo;
 import com.collabera.repo.ManagerRepo;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * @author rutpatel
@@ -43,8 +45,17 @@ public class EMSController {
 	@Autowired
 	ManagerRepo manRepo;
 
-//	---------------------- EMPLOYEE REST API Working----------------------
+//	---------------------- Terms of Service ----------------------
 
+	@GetMapping("/termsofservice")
+	private ResponseEntity<String> createEmp() {
+		return ResponseEntity.ok().body("NO RULES");
+	}
+
+//	---------------------- EMPLOYEE REST API Working ----------------------
+
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Get All Employees Details", notes = "To Get All Employees Details")
 	@GetMapping(path = "/employee/getAll")
 	private ResponseEntity<ArrayList<Employee>> getAllEmp() throws ParseException {
@@ -52,9 +63,11 @@ public class EMSController {
 		if (empList.size() > 0) {
 			return ResponseEntity.ok(empList);
 		}
-		return ResponseEntity.noContent().build();
+		throw new EmployeeNotFoundException("Employee not found...");
 	}
 
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Get specific Employee Details by EmpId", notes = "To Get specific Employee Details by passing EmpId")
 	@GetMapping("/employee/getId")
 	private ResponseEntity<Optional<Employee>> getEmpId(@RequestParam(name = "empId", required = true) int empId) {
@@ -62,17 +75,7 @@ public class EMSController {
 		if (!emp.isEmpty()) {
 			return ResponseEntity.ok(emp);
 		}
-		return ResponseEntity.noContent().build();
-	}
-
-	@ApiOperation(value = "Get specific Employee Details by Employee Name", notes = "To Get specific Employee Details by passing Employee Name")
-	@GetMapping("/employee/getName")
-	private ResponseEntity<ArrayList<Employee>> getEmpName(@RequestParam(name = "name", required = true) String name) {
-		ArrayList<Employee> empList = empRepo.findByName(name);
-		if (empList.size() > 0) {
-			return ResponseEntity.ok(empList);
-		}
-		return ResponseEntity.noContent().build();
+		throw new EmployeeNotFoundException("Employee not found...");
 	}
 
 	@ApiOperation(value = "Create New Employee", notes = "To Create New Employee by passing Employee Details")
@@ -83,6 +86,8 @@ public class EMSController {
 				.body("[" + emp.getName() + "] Employee Created...");
 	}
 
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Update specific Employee Details by EmpId", notes = "To Update specific Employee Details by passing EmpId and Employee Details")
 	@PutMapping("/employee/update")
 	private ResponseEntity<String> updateEmpId(@RequestParam(name = "empId", required = true) int empId,
@@ -110,6 +115,8 @@ public class EMSController {
 		throw new EmployeeNotFoundException("Employee not found...");
 	}
 
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Delete specific Employee by EmpId", notes = "To Delete specific Employee by passing EmpId")
 	@DeleteMapping("/employee/delete")
 	private boolean deleteEmpId(@RequestParam(name = "empId", required = true) int empId) {
@@ -117,11 +124,13 @@ public class EMSController {
 			empRepo.deleteById(empId);
 			return true;
 		}
-		return false;
+		throw new EmployeeNotFoundException("Employee not found...");
 	}
 
 //	---------------------- MANAGER REST API ----------------------
 
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Manager not found", response = ManagerNotFoundException.class) })
 	@ApiOperation(value = "Get All Managers Details", notes = "To Get All Managers Details")
 	@GetMapping(path = "/manager/getAll")
 	private ResponseEntity<ArrayList<Manager>> getAllMan() throws ParseException {
@@ -129,9 +138,11 @@ public class EMSController {
 		if (manList.size() > 0) {
 			return ResponseEntity.ok(manList);
 		}
-		return ResponseEntity.noContent().build();
+		throw new ManagerNotFoundException("Manager not found...");
 	}
 
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Manager not found", response = ManagerNotFoundException.class) })
 	@ApiOperation(value = "Get specific Manager Details by ManId", notes = "To Get specific Manager Details by passing ManId")
 	@GetMapping("/manager/getId")
 	private ResponseEntity<Optional<Manager>> getManId(@RequestParam(name = "manId", required = true) int manId) {
@@ -139,7 +150,7 @@ public class EMSController {
 		if (!man.isEmpty()) {
 			return ResponseEntity.ok(man);
 		}
-		return ResponseEntity.noContent().build();
+		throw new ManagerNotFoundException("Manager not found...");
 	}
 
 	@ApiOperation(value = "Create New Manager", notes = "To Create New Manager by passing Manager Details")
@@ -148,9 +159,10 @@ public class EMSController {
 		manRepo.saveAndFlush(man);
 		return ResponseEntity.created(new URI("localhost:8080/Manager/getId?manId=" + man.geteId()))
 				.body("[" + man.getName() + "] Manager Created...");
-
 	}
 
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Manager not found", response = ManagerNotFoundException.class) })
 	@ApiOperation(value = "Update specific Manager Details by ManId", notes = "To Update specific Manager Details by passing ManId and Manager Details")
 	@PutMapping("/manager/update")
 	private ResponseEntity<String> updateManId(@RequestParam(name = "manId", required = true) int manId,
@@ -178,6 +190,8 @@ public class EMSController {
 		throw new ManagerNotFoundException("Manager not found...");
 	}
 
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Manager not found", response = ManagerNotFoundException.class) })
 	@ApiOperation(value = "Delete specific Manager by ManId", notes = "To Delete specific Manager by passing ManId")
 	@DeleteMapping("/manager/delete")
 	private boolean deleteManId(@RequestParam(name = "manId", required = true) int manId) {
@@ -185,6 +199,47 @@ public class EMSController {
 			manRepo.deleteById(manId);
 			return true;
 		}
-		return false;
+		throw new ManagerNotFoundException("Manager not found...");
 	}
+
+//	---------------------- EMPLOYEE MANAGER SEARCH REST API ----------------------
+
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+	@ApiOperation(value = "Get specific Employee Details by Employee Name", notes = "To Get specific Employee Details by passing Employee Name")
+	@GetMapping("/employee/searchByName")
+	private ResponseEntity<ArrayList<Employee>> searchByName(
+			@RequestParam(name = "name", required = true) String name) {
+		ArrayList<Employee> empList = empRepo.findByName(name);
+		if (empList.size() > 0) {
+			return ResponseEntity.ok(empList);
+		}
+		throw new EmployeeNotFoundException("Employee not found...");
+	}
+
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+	@ApiOperation(value = "Get specific Employee Details by Employee SSN", notes = "To Get specific Employee Details by passing Employee SSN")
+	@GetMapping("/employee/searchBySsn")
+	private ResponseEntity<ArrayList<Employee>> getEmpName(@RequestParam(name = "ssn", required = true) int ssn) {
+		ArrayList<Employee> empList = empRepo.findBySsn(ssn);
+		if (empList.size() > 0) {
+			return ResponseEntity.ok(empList);
+		}
+		throw new EmployeeNotFoundException("Employee not found...");
+	}
+
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+	@ApiOperation(value = "Get Employees Details by specific Home State", notes = "To Get Employees Details by passing specific Home State")
+	@GetMapping("/employee/searchByHomeState")
+	private ResponseEntity<ArrayList<Employee>> searchByHomeState(
+			@RequestParam(name = "state", required = true) String state) {
+		ArrayList<Employee> empList = empRepo.searchByHomeState(state);
+		if (empList.size() > 0) {
+			return ResponseEntity.ok(empList);
+		}
+		throw new EmployeeNotFoundException("Employee not found...");
+	}
+
 }
