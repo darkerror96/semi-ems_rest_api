@@ -1,0 +1,54 @@
+{
+	"name": "Jason Torres",
+	"age": 38,
+	"gender": 1,
+	"contactNo": 1818181818,
+	"aHome": {
+		"streetAddress": "33 Ema",
+		"city": "Auth St",
+		"state": "New Jersey",
+		"country": "USA",
+		"zipCode": 72374
+	},
+	"aWork": {
+		"streetAddress": "33 Ema",
+		"city": "Auth St",
+		"state": "New Jersey",
+		"country": "USA",
+		"zipCode": 72374
+	},
+	"ssn": 444444444,
+	"email": "jasontorres@colla.com",
+	"jobTitle": 2,
+	"dept": 2,
+	"salary": 1999,
+	"reportTo": 0,
+	"isManager": 1
+}
+{
+    "name": "Wall Fury",
+    "age": 33,
+    "gender": 1,
+    "contactNo": 1030204050,
+    "aHome": {
+        "streetAddress": "12 Watson",
+        "city": "Veri St",
+        "state": "New Jersey",
+        "country": "USA",
+        "zipCode": 63456
+    },
+    "aWork": {
+       "streetAddress": "12 Watson",
+        "city": "Veri St",
+        "state": "New Jersey",
+        "country": "USA",
+        "zipCode": 63456
+    },
+    "ssn": 555555555,
+    "email": "wallfury@colla.com",
+    "jobTitle": 3,
+    "dept": 1,
+    "salary": 3909,
+    "reportTo": 0,
+    "isManager": 1
+}

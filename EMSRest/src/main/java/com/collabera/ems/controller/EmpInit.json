@@ -1,0 +1,109 @@
+{
+	"name": "Tom Wall",
+	"age": 18,
+	"gender": 1,
+	"contactNo": 1212121212,
+	"aHome": {
+		"streetAddress": "30 FarView",
+		"city": "Vado",
+		"state": "New Jersey",
+		"country": "USA",
+		"zipCode": 25219
+	},
+	"aWork": {
+		"streetAddress": "30 FarView",
+		"city": "Vado",
+		"state": "New Jersey",
+		"country": "USA",
+		"zipCode": 25219
+	},
+	"ssn": 111111111,
+	"email": "tomwall@colla.com",
+	"jobTitle": 1,
+	"dept": 1,
+	"salary": 1111,
+	"reportTo": 4,
+	"isManager": 0
+}
+{
+    "name": "Brad Daniel",
+    "age": 22,
+    "gender": 1,
+    "contactNo": 1010101010,
+    "aHome": {
+        "streetAddress": "109 Walgreen",
+        "city": "Sear",
+        "state": "New York",
+        "country": "USA",
+        "zipCode": 35055
+    },
+    "aWork": {
+       "streetAddress": "109 Walgreen",
+        "city": "Sear",
+        "state": "New York",
+        "country": "USA",
+        "zipCode": 35055
+    },
+    "ssn": 222222222,
+    "email": "braddaniel@colla.com",
+    "jobTitle": 1,
+    "dept": 1,
+    "salary": 2222,
+    "reportTo": 5,
+    "isManager": 0
+}
+{
+    "name": "Tarry William",
+    "age": 20,
+    "gender": 1,
+    "contactNo": 1090909090,
+    "aHome": {
+        "streetAddress": "46 Pierson",
+        "city": "Ena",
+        "state": "California",
+        "country": "USA",
+        "zipCode": 12321
+    },
+    "aWork": {
+       "streetAddress": "46 Pierson",
+        "city": "Ena",
+        "state": "California",
+        "country": "USA",
+        "zipCode": 12321
+    },
+    "ssn": 333333333,
+    "email": "tarrywilliam@colla.com",
+    "jobTitle": 2,
+    "dept": 3,
+    "salary": 2121,
+    "reportTo": 4,
+    "isManager": 0
+}
+{
+    "name": "Barry East",
+    "age": 23,
+    "gender": 1,
+    "contactNo": 1212121245,
+    "aHome": {
+        "streetAddress": "143 Outlaw St",
+        "city": "Norcom",
+        "state": "Massachusetts",
+        "country": "USA",
+        "zipCode": 90908
+    },
+    "aWork": {
+       "streetAddress": "143 Outlaw St",
+        "city": "Norcom",
+        "state": "Massachusetts",
+        "country": "USA",
+        "zipCode": 90908
+    },
+    "ssn": 666666666,
+    "email": "barryeast@colla.com",
+    "jobTitle": 3,
+    "dept": 2,
+    "salary": 213,
+    "reportTo": 5,
+    "isManager": 0
+}
+
