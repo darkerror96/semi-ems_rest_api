@@ -49,7 +49,7 @@ public class EMSController {
 
 	@GetMapping("/termsofservice")
 	private ResponseEntity<String> createEmp() {
-		return ResponseEntity.ok().body("NO RULES");
+		return ResponseEntity.ok().body("Everybody knows nobody reads the Terms of Service. So...");
 	}
 
 //	---------------------- EMPLOYEE REST API Working ----------------------

@@ -37,9 +37,20 @@ public class SwaggerConfig {
 
 		@SuppressWarnings("rawtypes")
 		Collection<VendorExtension> extensions = new ArrayList<>();
-		Contact contact = new Contact("Rut Patel", "https://www.linkedin.com/in/patel-rut", "rutpatel1996@gmail.com");
-		ApiInfo apiInfo = new ApiInfo("Employee Management System RESTful APIs", "Employee Description", "0.0.1",
-				"http://localhost:8080/termsofservice", contact, "License of EMS RESTful API", "https://www.github.com/darkerror96",
+
+		String name = "Rut Patel";
+		String linkedIn = "https://www.linkedin.com/in/patel-rut";
+		String eMail = "rutpatel1996@gmail.com";
+
+		String title = "Employee Management System RESTful APIs";
+		String description = "Employee Description";
+		String version = "0.0.1";
+		String license = "License of EMS RESTful API";
+		String gitHub = "https://www.github.com/darkerror96";
+		String termsOfService = "http://localhost:8080/termsofservice";
+
+		Contact contact = new Contact(name, linkedIn, eMail);
+		ApiInfo apiInfo = new ApiInfo(title, description, version, termsOfService, contact, license, gitHub,
 				extensions);
 		dock.apiInfo(apiInfo);
 
