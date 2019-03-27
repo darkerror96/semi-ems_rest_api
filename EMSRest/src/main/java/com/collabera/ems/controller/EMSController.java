@@ -43,7 +43,7 @@ public class EMSController {
 	@Autowired
 	ManagerRepo manRepo;
 
-//	---------------------- EMPLOYEE REST API Working Branch----------------------
+//	---------------------- EMPLOYEE REST API Working----------------------
 
 	@ApiOperation(value = "Get All Employees Details", notes = "To Get All Employees Details")
 	@GetMapping(path = "/employee/getAll")
