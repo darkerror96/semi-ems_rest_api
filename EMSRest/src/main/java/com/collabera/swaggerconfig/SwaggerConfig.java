@@ -43,7 +43,7 @@ public class SwaggerConfig {
 		String eMail = "rutpatel1996@gmail.com";
 
 		String title = "Employee Management System RESTful APIs";
-		String description = "Employee Description";
+		String description = "An Employee Management System totally based on REST API calls.\nAnd if you still use SOAP, better take a REST.";
 		String version = "0.0.1";
 		String license = "License of EMS RESTful API";
 		String gitHub = "https://www.github.com/darkerror96";

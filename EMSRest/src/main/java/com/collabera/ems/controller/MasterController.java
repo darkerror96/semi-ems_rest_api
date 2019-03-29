@@ -26,7 +26,7 @@ public class MasterController {
 	@ApiOperation(value = "Terms of Service", notes = "Get Terms of Service")
 	@GetMapping("/termsofservice")
 	private ResponseEntity<String> termsOfService() {
-		return ResponseEntity.ok().body("Everybody knows nobody reads the Terms of Service. So...");
+		return ResponseEntity.ok().body("Nobody got time for that. So, I just assumed you agreed on Terms of Service...");
 	}
 
 //	---------------------- GENDER REST API ----------------------

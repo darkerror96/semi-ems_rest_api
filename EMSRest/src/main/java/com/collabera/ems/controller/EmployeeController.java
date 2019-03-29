@@ -112,17 +112,16 @@ public class EmployeeController {
 			throw new EmployeeIdMismatchFormatException(
 					"Employee Id Mismatch. Check EmpId passed in URL and JSON Body...");
 		}
-
 	}
 
 	@ApiResponses({
 			@ApiResponse(code = 404, message = "Invalid Employee Id", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Delete specific Employee by EmpId", notes = "To Delete specific Employee by passing EmpId")
 	@DeleteMapping("/employee/delete")
-	private boolean deleteEmpId(@RequestParam(name = "empId", required = true) int empId) {
+	private ResponseEntity<String> deleteEmpId(@RequestParam(name = "empId", required = true) int empId) {
 		if (!empRepo.findById(empId).isEmpty()) {
 			empRepo.deleteById(empId);
-			return true;
+			return ResponseEntity.ok().body(" (EmpId - " + empId + ")" + " { Employee Deleted Successfully }");
 		}
 		throw new EmployeeNotFoundException("Invalid Employee Id...");
 	}

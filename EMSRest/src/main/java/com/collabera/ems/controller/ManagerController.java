@@ -115,10 +115,10 @@ public class ManagerController {
 			@ApiResponse(code = 404, message = "Invalid Manager Id", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Delete specific Manager by ManId", notes = "To Delete specific Manager by passing ManId")
 	@DeleteMapping("/manager/delete")
-	private boolean deleteManId(@RequestParam(name = "manId", required = true) int manId) {
+	private ResponseEntity<String> deleteManId(@RequestParam(name = "manId", required = true) int manId) {
 		if (!manRepo.findById(manId).isEmpty()) {
 			manRepo.deleteById(manId);
-			return true;
+			return ResponseEntity.ok().body(" (ManId - " + manId + ")" + " { Manager Deleted Successfully }");
 		}
 		throw new EmployeeNotFoundException("Invalid Manager Id...");
 	}
