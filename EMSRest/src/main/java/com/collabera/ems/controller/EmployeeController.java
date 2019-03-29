@@ -168,6 +168,19 @@ public class EmployeeController {
 
 	@ApiResponses({
 			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+	@ApiOperation(value = "Get Employees Details by specific Home and Work State", notes = "To Get list of Employees Details by passing specific Home and Work State")
+	@GetMapping("/employee/searchByHomeAndWorkState")
+	private ResponseEntity<ArrayList<Employee>> searchByHomeAndWorkState(
+			@RequestParam(name = "state", required = true) String state) {
+		ArrayList<Employee> empList = empRepo.searchByHomeStateAndWorkState(state);
+		if (empList.size() > 0) {
+			return ResponseEntity.ok(empList);
+		}
+		throw new EmployeeNotFoundException("Employee not found...");
+	}
+
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Get Employees Details by Age Less Than", notes = "To Get list of Employees Details whose age Less Than specified")
 	@GetMapping("/employee/searchByAgeLessThan")
 	private ResponseEntity<ArrayList<Employee>> getEmpLessThanAge(

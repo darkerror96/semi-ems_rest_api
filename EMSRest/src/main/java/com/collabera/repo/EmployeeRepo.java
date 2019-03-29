@@ -37,5 +37,8 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
 
 	@Query(value = "select e from Employee e where e.aHome.state = :state")
 	ArrayList<Employee> searchByHomeState(String state);
+	
+	@Query(value = "select e from Employee e where e.aHome.state = :state and e.aWork.state = :state")
+	ArrayList<Employee> searchByHomeStateAndWorkState(String state);
 
 }

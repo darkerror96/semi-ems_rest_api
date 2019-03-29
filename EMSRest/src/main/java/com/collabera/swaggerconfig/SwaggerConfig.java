@@ -34,6 +34,7 @@ public class SwaggerConfig {
 
 		Docket dock = new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("com.collabera")).paths(PathSelectors.ant("/*/*")).build();
+		dock.useDefaultResponseMessages(false);
 
 		@SuppressWarnings("rawtypes")
 		Collection<VendorExtension> extensions = new ArrayList<>();
