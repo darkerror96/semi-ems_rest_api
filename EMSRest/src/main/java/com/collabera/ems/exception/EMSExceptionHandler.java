@@ -15,18 +15,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class EMSExceptionHandler {
 
+	@ExceptionHandler(EmployeeIdMismatchFormatException.class)
+	public ResponseEntity<?> empIdMismatchException(EmployeeIdMismatchFormatException e) {
+		return ((BodyBuilder) ResponseEntity.badRequest()).body(e.getMessage());
+	}
+
 	@ExceptionHandler(EmployeeNotFoundException.class)
 	public ResponseEntity<?> empNFException(EmployeeNotFoundException e) {
 		return ((BodyBuilder) ResponseEntity.notFound()).body(e.getMessage());
-	}
-
-	@ExceptionHandler(ManagerNotFoundException.class)
-	public ResponseEntity<?> manNFException(ManagerNotFoundException e) {
-		return ((BodyBuilder) ResponseEntity.notFound()).body(e.getMessage());
-	}
-
-	@ExceptionHandler(NullPointerException.class)
-	public ResponseEntity<?> nullFoundException(NullPointerException e) {
-		return ResponseEntity.badRequest().body("NULL");
 	}
 }

@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.collabera.ems.exception.EmployeeIdMismatchFormatException;
 import com.collabera.ems.exception.EmployeeNotFoundException;
+import com.collabera.ems.model.Department;
 import com.collabera.ems.model.Employee;
+import com.collabera.ems.model.Gender;
+import com.collabera.ems.model.JobTitle;
 import com.collabera.repo.EmployeeRepo;
 
 import io.swagger.annotations.Api;
@@ -35,23 +39,16 @@ import io.swagger.annotations.ApiResponses;
  *
  */
 @RestController
-@Api(tags = "Employee", description = "Operations about Employee")
+@Api(tags = "Employee", description = "Operations for Employee")
 public class EmployeeController {
 
 	@Autowired
 	EmployeeRepo empRepo;
 
-//	---------------------- Terms of Service ----------------------
-
-	@GetMapping("/termsofservice")
-	private ResponseEntity<String> termsOfService() {
-		return ResponseEntity.ok().body("Everybody knows nobody reads the Terms of Service. So...");
-	}
-
-//	---------------------- EMPLOYEE REST API Working ----------------------
+//	---------------------- EMPLOYEE REST API ----------------------
 
 	@ApiResponses({
-			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+			@ApiResponse(code = 404, message = "No Employee Found in Database", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Get All Employees Details", notes = "To Get All Employees Details")
 	@GetMapping(path = "/employee/getAll")
 	private ResponseEntity<ArrayList<Employee>> getAllEmp() throws ParseException {
@@ -59,11 +56,11 @@ public class EmployeeController {
 		if (empList.size() > 0) {
 			return ResponseEntity.ok(empList);
 		}
-		throw new EmployeeNotFoundException("Employee not found...");
+		throw new EmployeeNotFoundException("No Employee Found in Database...");
 	}
 
 	@ApiResponses({
-			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+			@ApiResponse(code = 404, message = "Invalid Employee Id", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Get specific Employee Details by EmpId", notes = "To Get specific Employee Details by passing EmpId")
 	@GetMapping("/employee/getId")
 	private ResponseEntity<Optional<Employee>> getEmpId(@RequestParam(name = "empId", required = true) int empId) {
@@ -71,48 +68,55 @@ public class EmployeeController {
 		if (!emp.isEmpty()) {
 			return ResponseEntity.ok(emp);
 		}
-		throw new EmployeeNotFoundException("Employee not found...");
+		throw new EmployeeNotFoundException("Invalid Employee Id...");
 	}
 
 	@ApiOperation(value = "Create New Employee", notes = "To Create New Employee by passing Employee Details")
 	@PostMapping("/employee/create")
 	private ResponseEntity<String> createEmp(@Valid @RequestBody Employee emp) throws URISyntaxException {
-		empRepo.saveAndFlush(emp);
+		empRepo.save(emp);
 		return ResponseEntity.created(new URI("localhost:8080/employee/getId?empId=" + emp.geteId()))
-				.body("[" + emp.getName() + "] Employee Created...");
+				.body(emp.getName() + " (EmpId - " + emp.geteId() + ")" + " { Employee Created Successfully }");
 	}
 
 	@ApiResponses({
-			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+			@ApiResponse(code = 404, message = "Invalid Employee Id", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Update specific Employee Details by EmpId", notes = "To Update specific Employee Details by passing EmpId and Employee Details")
 	@PutMapping("/employee/update")
 	private ResponseEntity<String> updateEmpId(@RequestParam(name = "empId", required = true) int empId,
 			@Valid @RequestBody Employee empNew) {
-		Optional<Employee> empOpt = empRepo.findById(empId);
-		if (empOpt.isPresent()) {
-			Employee emp = empOpt.get();
-			emp.seteId(empNew.geteId());
-			emp.setName(empNew.getName());
-			emp.setAge(empNew.getAge());
-			emp.setGender(empNew.getGender());
-			emp.setContactNo(empNew.getContactNo());
-			emp.setaHome(empNew.getaHome());
-			emp.setaWork(empNew.getaWork());
-			emp.setSsn(empNew.getSsn());
-			emp.setEmail(empNew.getEmail());
-			emp.setJobTitle(empNew.getJobTitle());
-			emp.setDept(empNew.getDept());
-			emp.setSalary(empNew.getSalary());
-			emp.setReportTo(empNew.getReportTo());
-			emp.setIsManager(empNew.getIsManager());
-			empRepo.save(emp);
-			return ResponseEntity.accepted().body("[" + emp.getName() + "] Employee Updated...");
+		if (empNew.geteId() == empId) {
+			Optional<Employee> empOpt = empRepo.findById(empId);
+			if (empOpt.isPresent()) {
+				Employee emp = empOpt.get();
+				emp.seteId(empNew.geteId());
+				emp.setName(empNew.getName());
+				emp.setAge(empNew.getAge());
+				emp.setGender(empNew.getGender());
+				emp.setContactNo(empNew.getContactNo());
+				emp.setaHome(empNew.getaHome());
+				emp.setaWork(empNew.getaWork());
+				emp.setSsn(empNew.getSsn());
+				emp.setEmail(empNew.getEmail());
+				emp.setJobTitle(empNew.getJobTitle());
+				emp.setDept(empNew.getDept());
+				emp.setSalary(empNew.getSalary());
+				emp.setReportTo(empNew.getReportTo());
+				emp.setIsManager(empNew.getIsManager());
+				empRepo.saveAndFlush(emp);
+				return ResponseEntity.accepted()
+						.body(emp.getName() + " (EmpId - " + emp.geteId() + ")" + " { Employee Updated Successfully }");
+			}
+			throw new EmployeeNotFoundException("Invalid Employee Id...");
+		} else {
+			throw new EmployeeIdMismatchFormatException(
+					"Employee Id Mismatch. Check EmpId passed in URL and JSON Body...");
 		}
-		throw new EmployeeNotFoundException("Employee not found...");
+
 	}
 
 	@ApiResponses({
-			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+			@ApiResponse(code = 404, message = "Invalid Employee Id", response = EmployeeNotFoundException.class) })
 	@ApiOperation(value = "Delete specific Employee by EmpId", notes = "To Delete specific Employee by passing EmpId")
 	@DeleteMapping("/employee/delete")
 	private boolean deleteEmpId(@RequestParam(name = "empId", required = true) int empId) {
@@ -120,7 +124,7 @@ public class EmployeeController {
 			empRepo.deleteById(empId);
 			return true;
 		}
-		throw new EmployeeNotFoundException("Employee not found...");
+		throw new EmployeeNotFoundException("Invalid Employee Id...");
 	}
 
 //	---------------------- EMPLOYEE MANAGER SEARCH REST API ----------------------
@@ -163,4 +167,84 @@ public class EmployeeController {
 		throw new EmployeeNotFoundException("Employee not found...");
 	}
 
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+	@ApiOperation(value = "Get Employees Details by Age Less Than", notes = "To Get list of Employees Details whose age Less Than specified")
+	@GetMapping("/employee/searchByAgeLessThan")
+	private ResponseEntity<ArrayList<Employee>> getEmpLessThanAge(
+			@RequestParam(name = "age", required = true) int age) {
+		ArrayList<Employee> empList = empRepo.findByAgeLessThan(age);
+		if (empList.size() > 0) {
+			return ResponseEntity.ok(empList);
+		}
+		throw new EmployeeNotFoundException("Employee not found...");
+	}
+
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+	@ApiOperation(value = "Get Employees Details by Age Greater Than", notes = "To Get list of Employees Details whose age Greater Than specified")
+	@GetMapping("/employee/searchByAgeGreaterThan")
+	private ResponseEntity<ArrayList<Employee>> getEmpGreaterThanAge(
+			@RequestParam(name = "age", required = true) int age) {
+		ArrayList<Employee> empList = empRepo.findByAgeGreaterThan(age);
+		if (empList.size() > 0) {
+			return ResponseEntity.ok(empList);
+		}
+		throw new EmployeeNotFoundException("Employee not found...");
+	}
+
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+	@ApiOperation(value = "Get Employees Details by Employee Name Like", notes = "To Get list of Employees Details by passing Employee Name")
+	@GetMapping("/employee/searchByNameContaining")
+	private ResponseEntity<ArrayList<Employee>> getEmpNameLike(
+			@RequestParam(name = "name", required = true) String name) {
+		ArrayList<Employee> empList = empRepo.findByNameContaining(name);
+		if (empList.size() > 0) {
+			return ResponseEntity.ok(empList);
+		}
+		throw new EmployeeNotFoundException("Employee not found...");
+	}
+
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+	@ApiOperation(value = "Get Employees Details by Employee Age Greater Than and Gender Type", notes = "To Get list of Employees Details by passing Employee Age Greater Than and Gender Type")
+	@GetMapping("/employee/searchByAgeGreaterThanAndGender")
+	private ResponseEntity<ArrayList<Employee>> getEmpAgeGreaterThanAndGender(
+			@RequestParam(name = "age", required = true) int age,
+			@RequestParam(name = "gen", required = true) Gender gen) {
+		ArrayList<Employee> empList = empRepo.findByAgeGreaterThanAndGender(age, gen);
+		if (empList.size() > 0) {
+			return ResponseEntity.ok(empList);
+		}
+		throw new EmployeeNotFoundException("Employee not found...");
+	}
+
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+	@ApiOperation(value = "Get Employees Details by Employee Salary Greater Than and Order By Ascending", notes = "To Get list of Employees Details order by Ascending order and passing Employee Salary Greater Than")
+	@GetMapping("/employee/searchBySalaryGreaterThanAndOrderBySalaryAsc")
+	private ResponseEntity<ArrayList<Employee>> getEmpSalaryGreaterThanAndOrderByAsc(
+			@RequestParam(name = "salary", required = true) double salary) {
+		ArrayList<Employee> empList = empRepo.findBySalaryGreaterThanOrderBySalaryAsc(salary);
+		if (empList.size() > 0) {
+			return ResponseEntity.ok(empList);
+		}
+		throw new EmployeeNotFoundException("Employee not found...");
+	}
+
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "Employee not found", response = EmployeeNotFoundException.class) })
+	@ApiOperation(value = "Get Employees Details by Employee Report To, Department and Job Title", notes = "To Get list of Employees Details by passing Employee Report To, Department and Job Title details")
+	@GetMapping("/employee/searchByReportToAndDepartmentAndJobTitle")
+	private ResponseEntity<ArrayList<Employee>> getEmpReportToAndDeptAndJobTitle(
+			@RequestParam(name = "reportTo", required = true) int reportTo,
+			@RequestParam(name = "dept", required = true) Department dept,
+			@RequestParam(name = "jobTitle", required = true) JobTitle jobTitle) {
+		ArrayList<Employee> empList = empRepo.findByReportToAndDeptAndJobTitle(reportTo, dept, jobTitle);
+		if (empList.size() > 0) {
+			return ResponseEntity.ok(empList);
+		}
+		throw new EmployeeNotFoundException("Employee not found...");
+	}
 }

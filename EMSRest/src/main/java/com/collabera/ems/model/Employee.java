@@ -44,12 +44,10 @@ public class Employee extends Person implements Serializable {
 	private String email;
 
 	@NotNull
-	@Positive
-	private int jobTitle;
+	private JobTitle jobTitle;
 
 	@NotNull
-	@Positive
-	private int dept;
+	private Department dept;
 
 	@NotNull
 	@Positive
@@ -67,8 +65,8 @@ public class Employee extends Person implements Serializable {
 	public Employee() {
 	}
 
-	public Employee(String name, int age, int gender, long contactNo, Address aHome, Address aWork, int ssn,
-			String email, int jobTitle, int dept, double salary, int reportTo, int isManager) {
+	public Employee(String name, int age, Gender gender, long contactNo, Address aHome, Address aWork, int ssn,
+			String email, JobTitle jobTitle, Department dept, double salary, int reportTo, int isManager) {
 		super(name, age, gender, contactNo, aHome, aWork);
 		this.ssn = ssn;
 		this.email = email;
@@ -103,19 +101,19 @@ public class Employee extends Person implements Serializable {
 		this.email = email;
 	}
 
-	public int getJobTitle() {
+	public JobTitle getJobTitle() {
 		return jobTitle;
 	}
 
-	public void setJobTitle(int jobTitle) {
+	public void setJobTitle(JobTitle jobTitle) {
 		this.jobTitle = jobTitle;
 	}
 
-	public int getDept() {
+	public Department getDept() {
 		return dept;
 	}
 
-	public void setDept(int dept) {
+	public void setDept(Department dept) {
 		this.dept = dept;
 	}
 

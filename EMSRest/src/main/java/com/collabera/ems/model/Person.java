@@ -36,27 +36,25 @@ public class Person implements Serializable {
 	private int age;
 
 	@NotNull
-	@Min(value = 1, message = "1-MALE 2-FEMALE 3-OTHERS")
-	@Max(value = 3, message = "1-MALE 2-FEMALE 3-OTHERS")
-	private int gender;
+	private Gender gender;
 
 	@NotNull
 	@Digits(integer = 10, fraction = 0, message = "Contact No must be 10 digits")
 	@Min(value = 1000000000, message = "Check Contact No format")
 	private long contactNo;
 
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = Address.class)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Address.class)
 	@NotNull
 	private Address aHome;
 
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = Address.class)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Address.class)
 	@NotNull
 	private Address aWork;
 
 	public Person() {
 	}
 
-	public Person(String name, int age, int gender, long contactNo, Address aHome, Address aWork) {
+	public Person(String name, int age, Gender gender, long contactNo, Address aHome, Address aWork) {
 		this.name = name;
 		this.age = age;
 		this.gender = gender;
@@ -81,11 +79,11 @@ public class Person implements Serializable {
 		this.age = age;
 	}
 
-	public int getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(int gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 

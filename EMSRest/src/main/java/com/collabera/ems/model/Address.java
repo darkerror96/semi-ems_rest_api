@@ -13,6 +13,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 /**
@@ -48,6 +49,7 @@ public class Address implements Serializable {
 	private String country;
 
 	@NotNull
+	@Positive
 	@Digits(integer = 5, fraction = 0, message = "Check ZipCode Format")
 	@Min(value = 1, message = "Check ZipCode Format")
 	@Max(value = 99999, message = "Check ZipCode Format")
@@ -62,6 +64,14 @@ public class Address implements Serializable {
 		this.state = state;
 		this.country = country;
 		this.zipCode = zipCode;
+	}
+
+	public int getaId() {
+		return aId;
+	}
+
+	public void setaId(int aId) {
+		this.aId = aId;
 	}
 
 	public String getStreetAddress() {

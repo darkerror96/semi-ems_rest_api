@@ -1,7 +1,7 @@
 {
 	"name": "Tom Wall",
 	"age": 18,
-	"gender": 1,
+	"gender": "MALE",
 	"contactNo": 1212121212,
 	"aHome": {
 		"streetAddress": "30 FarView",
@@ -19,8 +19,8 @@
 	},
 	"ssn": 111111111,
 	"email": "tomwall@colla.com",
-	"jobTitle": 1,
-	"dept": 1,
+	"jobTitle": "JAVA_DEVELOPER",
+	"dept": "SALES",
 	"salary": 1111,
 	"reportTo": 4,
 	"isManager": 0
@@ -28,7 +28,7 @@
 {
     "name": "Brad Daniel",
     "age": 22,
-    "gender": 1,
+    "gender": "MALE",
     "contactNo": 1010101010,
     "aHome": {
         "streetAddress": "109 Walgreen",
@@ -46,8 +46,8 @@
     },
     "ssn": 222222222,
     "email": "braddaniel@colla.com",
-    "jobTitle": 1,
-    "dept": 1,
+    "jobTitle": "WEB_DEVELOPER",
+    "dept": "HR",
     "salary": 2222,
     "reportTo": 5,
     "isManager": 0
@@ -55,7 +55,7 @@
 {
     "name": "Tarry William",
     "age": 20,
-    "gender": 1,
+    "gender": "MALE",
     "contactNo": 1090909090,
     "aHome": {
         "streetAddress": "46 Pierson",
@@ -73,8 +73,8 @@
     },
     "ssn": 333333333,
     "email": "tarrywilliam@colla.com",
-    "jobTitle": 2,
-    "dept": 3,
+    "jobTitle": "FULL_STACK_DEVELOPER",
+    "dept": "DEVELOPER",
     "salary": 2121,
     "reportTo": 4,
     "isManager": 0
@@ -82,7 +82,7 @@
 {
     "name": "Barry East",
     "age": 23,
-    "gender": 1,
+    "gender": "MALE",
     "contactNo": 1212121245,
     "aHome": {
         "streetAddress": "143 Outlaw St",
@@ -100,8 +100,8 @@
     },
     "ssn": 666666666,
     "email": "barryeast@colla.com",
-    "jobTitle": 3,
-    "dept": 2,
+    "jobTitle": "FULL_STACK_DEVELOPER",
+    "dept": "DEVELOPER",
     "salary": 213,
     "reportTo": 5,
     "isManager": 0

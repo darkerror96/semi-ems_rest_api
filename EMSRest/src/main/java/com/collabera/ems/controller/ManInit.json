@@ -1,7 +1,7 @@
 {
 	"name": "Jason Torres",
 	"age": 38,
-	"gender": 1,
+	"gender": "MALE",
 	"contactNo": 1818181818,
 	"aHome": {
 		"streetAddress": "33 Ema",
@@ -19,8 +19,8 @@
 	},
 	"ssn": 444444444,
 	"email": "jasontorres@colla.com",
-	"jobTitle": 2,
-	"dept": 2,
+	"jobTitle": "FULL_STACK_DEVELOPER",
+	"dept": "DEVELOPER",
 	"salary": 1999,
 	"reportTo": 0,
 	"isManager": 1
@@ -28,7 +28,7 @@
 {
     "name": "Wall Fury",
     "age": 33,
-    "gender": 1,
+    "gender": "MALE",
     "contactNo": 1030204050,
     "aHome": {
         "streetAddress": "12 Watson",
@@ -46,8 +46,8 @@
     },
     "ssn": 555555555,
     "email": "wallfury@colla.com",
-    "jobTitle": 3,
-    "dept": 1,
+    "jobTitle": "JAVA_DEVELOPER",
+    "dept": "HR",
     "salary": 3909,
     "reportTo": 0,
     "isManager": 1
