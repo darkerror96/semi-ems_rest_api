@@ -22,7 +22,7 @@
 	"jobTitle": "JAVA_DEVELOPER",
 	"dept": "SALES",
 	"salary": 1111,
-	"reportTo": 4,
+	"reportTo": 1,
 	"isManager": 0
 }
 {
@@ -49,7 +49,7 @@
     "jobTitle": "WEB_DEVELOPER",
     "dept": "HR",
     "salary": 2222,
-    "reportTo": 5,
+    "reportTo": 4,
     "isManager": 0
 }
 {
@@ -76,7 +76,7 @@
     "jobTitle": "FULL_STACK_DEVELOPER",
     "dept": "DEVELOPER",
     "salary": 2121,
-    "reportTo": 4,
+    "reportTo": 1,
     "isManager": 0
 }
 {
@@ -103,7 +103,7 @@
     "jobTitle": "FULL_STACK_DEVELOPER",
     "dept": "DEVELOPER",
     "salary": 213,
-    "reportTo": 5,
+    "reportTo": 4,
     "isManager": 0
 }
 
