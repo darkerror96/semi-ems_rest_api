@@ -106,4 +106,5 @@ public class EMSControllerTest {
 //	public void testDeleteManId() throws Exception {
 //		mockMvc.perform(delete("/manager/delete?manId=54")).andExpect(status().isNotFound());
 //	}
+	
 }
