@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -121,7 +122,7 @@ public class EmployeeController {
 	private ResponseEntity<String> deleteEmpId(@RequestParam(name = "empId", required = true) int empId) {
 		if (!empRepo.findById(empId).isEmpty()) {
 			empRepo.deleteById(empId);
-			return ResponseEntity.ok().body(" (EmpId - " + empId + ")" + " { Employee Deleted Successfully }");
+			return ((BodyBuilder) ResponseEntity.noContent()).body(" (EmpId - " + empId + ")" + " { Employee Deleted Successfully }");
 		}
 		throw new EmployeeNotFoundException("Invalid Employee Id...");
 	}
