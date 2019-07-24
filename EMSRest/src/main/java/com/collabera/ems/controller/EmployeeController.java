@@ -122,7 +122,8 @@ public class EmployeeController {
 	private ResponseEntity<String> deleteEmpId(@RequestParam(name = "empId", required = true) int empId) {
 		if (!empRepo.findById(empId).isEmpty()) {
 			empRepo.deleteById(empId);
-			return ((BodyBuilder) ResponseEntity.noContent()).body(" (EmpId - " + empId + ")" + " { Employee Deleted Successfully }");
+			return ((BodyBuilder) ResponseEntity.noContent())
+					.body(" (EmpId - " + empId + ")" + " { Employee Deleted Successfully }");
 		}
 		throw new EmployeeNotFoundException("Invalid Employee Id...");
 	}
