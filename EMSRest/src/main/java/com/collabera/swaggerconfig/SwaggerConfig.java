@@ -26,7 +26,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-	// Generate swagger docs using below URL
+	// Generate swagger documents using below URL
 	// http://localhost:8080/v2/api-docs
 	// Copy Paste JSON format to Swagger Editor
 	@Bean
